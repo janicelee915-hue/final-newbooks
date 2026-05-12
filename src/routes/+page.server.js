@@ -6,8 +6,6 @@ import { DATABASE_URL } from '$env/static/private';
 
 const sql = neon(DATABASE_URL);
 
-// SvelteKit calls this function whenever the page is requested.
-// Whatever object we return becomes available to +page.svelte as `data`.
 export async function load() {
 	const rows = await sql`
 		SELECT id, date::text AS date, description, debit, credit, amount
@@ -18,9 +16,8 @@ export async function load() {
 	return { transactions: rows };
 }
 
-// This runs when the form is submitted.
 export const actions = {
-	default: async ({ request }) => {
+	create: async ({ request }) => {
 		const formData = await request.formData();
 
 		const date = formData.get('date');
@@ -32,6 +29,18 @@ export const actions = {
 		await sql`
 			INSERT INTO transactions (date, description, debit, credit, amount)
 			VALUES (${date}, ${description}, ${debit}, ${credit}, ${amount})
+		`;
+
+		return { success: true };
+	},
+
+	delete: async ({ request }) => {
+		const formData = await request.formData();
+		const id = formData.get('id');
+
+		await sql`
+			DELETE FROM transactions
+			WHERE id = ${id}
 		`;
 
 		return { success: true };

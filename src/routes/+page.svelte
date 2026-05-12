@@ -6,7 +6,7 @@
 	let { data } = $props();
 
 	// Wrap the array in $state so the totals below can react to it.
-	let transactions = $state(data.transactions);
+	let transactions = $derived(data.transactions ?? []);
 	// Add this INSIDE the <script> block, below the transactions array.
 	function classify(t) {
 		if (t.credit === 'Revenue') {

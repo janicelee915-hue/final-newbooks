@@ -1,5 +1,29 @@
 <script>
-  // We'll add JavaScript here in Unit 2.
+  // An array of transaction objects.
+  // Square brackets. Each item is a full object. Commas between items.
+  let transactions = $state([
+    {
+      date: '2026-04-01',
+      description: 'Opening cash deposit',
+      debit: 'Cash',
+      credit: "Owner's Equity",
+      amount: 5000
+    },
+    {
+      date: '2026-04-03',
+      description: 'Consulting fee from client',
+      debit: 'Cash',
+      credit: 'Revenue',
+      amount: 1200
+    },
+    {
+      date: '2026-04-05',
+      description: 'April rent',
+      debit: 'Rent Expense',
+      credit: 'Cash',
+      amount: 800
+    }
+  ]);
 </script>
 
 <div class="max-w-5xl mx-auto p-6 space-y-8">
@@ -104,12 +128,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="border-t border-slate-200">
-            <td colspan="6" class="px-3 py-6 text-center text-slate-400 italic">
-              No transactions yet. Add one using the form above.
-            </td>
-          </tr>
-        </tbody>
+  {#each transactions as t}
+    <tr class="border-t border-slate-200 hover:bg-slate-50">
+      <td class="px-3 py-2">{t.date}</td>
+      <td class="px-3 py-2">{t.description}</td>
+      <td class="px-3 py-2">{t.debit}</td>
+      <td class="px-3 py-2">{t.credit}</td>
+      <td class="px-3 py-2 text-right">${t.amount.toFixed(2)}</td>
+      <td class="px-3 py-2 text-slate-400">—</td>
+    </tr>
+  {/each}
+</tbody>
       </table>
     </div>
   </section>

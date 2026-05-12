@@ -147,12 +147,12 @@
 			</div>
 			<div class="flex justify-between font-medium text-rose-700">
 				<span>Total Expenses</span>
-				<span>${totalExpenses.toFixed(2)}</span>
+				<span>${Number(totalExpenses || 0).toFixed(2)}</span>
 			</div>
 			<div class="flex justify-between border-t border-slate-300 pt-2 text-lg font-bold">
 				<span>Net Income</span>
 				<span class={netIncome >= 0 ? 'text-emerald-700' : 'text-rose-700'}>
-					${netIncome.toFixed(2)}
+					${Number(netIncome || 0).toFixed(2)}
 				</span>
 			</div>
 		</div>
